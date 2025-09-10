@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     Device.hasMany(models.Gnss, { as: "gnssData" });
     Device.hasMany(models.WaterLevel, { as: "waterLevelData" });
     Device.hasMany(models.Wave, { as: "waveData" });
-    Device.hasMany(models.Rainfall, { as: "rainFallData" });
+
+    Device.hasMany(models.Rainfall, {
+      foreignKey: "deviceId",
+      as: "rainFallData",
+    });
   };
   return Device;
 };
