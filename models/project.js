@@ -27,8 +27,15 @@ module.exports = (sequelize, DataTypes) => {
   Project.associate = function (models) {
     Project.hasMany(models.Device, {
       foreignKey: "projectId",
-      as: "devices",
+      as: "devices", // alias devices
+    });
+    Project.belongsToMany(models.User, {
+      through: "UserProjects",
+      foreignKey: "projectId",
+      otherKey: "userId",
+      as: "users",
     });
   };
+
   return Project;
 };

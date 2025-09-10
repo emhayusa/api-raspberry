@@ -13,6 +13,8 @@ exports.login = async (req, res) => {
       include: [{ model: Role }],
     });
 
+    //console.log(user);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -25,12 +27,15 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+    const roles = user.Roles ? user.Roles.map((r) => r.name) : ["user"];
+
     // Buat JWT
     const token = jwt.sign(
       {
         id: user.id,
         email: user.email,
-        role: user.Role?.name || "user",
+        //role: user.Role?.name || "user",
+        roles,
       },
       config.secret,
       { expiresIn: "1h" }
@@ -50,7 +55,6 @@ exports.login = async (req, res) => {
           uuid: user.uuid,
           username: user.username,
           email: user.email,
-          employee: user.Employee,
           roles: authorities,
           accessToken: token,
           //refreshToken: refreshToken,

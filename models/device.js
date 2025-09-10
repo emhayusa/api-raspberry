@@ -29,9 +29,12 @@ module.exports = (sequelize, DataTypes) => {
       as: "project",
     });
 
-    Device.hasMany(models.Gnss, { as: "gnssData" });
-    Device.hasMany(models.WaterLevel, { as: "waterLevelData" });
-    Device.hasMany(models.Wave, { as: "waveData" });
+    Device.hasMany(models.Gnss, { foreignKey: "deviceId", as: "gnssData" });
+    Device.hasMany(models.WaterLevel, {
+      foreignKey: "deviceId",
+      as: "waterLevelData",
+    });
+    Device.hasMany(models.Wave, { foreignKey: "deviceId", as: "waveData" });
 
     Device.hasMany(models.Rainfall, {
       foreignKey: "deviceId",

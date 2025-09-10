@@ -1,0 +1,35 @@
+const { Project, Device, User } = require("../../models");
+
+exports.getListMyProject = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Ambil semua project milik user login (via UserProjects)
+    const user = await User.findByPk(userId, {
+      include: [
+        {
+          model: Project,
+          as: "projects", // alias sesuai associate
+          attributes: ["uuid", "name", "location", "description"],
+          through: { attributes: [] },
+          include: [
+            {
+              model: Device,
+              as: "devices", // kalau mau tampilkan devices juga
+              attributes: ["uuid", "name", "serialNumber"],
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user.projects); // hanya kembalikan projects
+  } catch (err) {
+    console.error("Error getListMyProject:", err);
+    res.status(500).json({ error: err.message });
+  }
+};

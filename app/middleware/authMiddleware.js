@@ -39,8 +39,11 @@ function authorizeRoles(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
     console.log("User roles:", req.user);
-    const userRoles = req.user.Roles.map((role) => role.name);
+    //const userRoles = req.user.Roles.map((role) => role.name);
+    //const isAllowed = userRoles.some((role) => allowedRoles.includes(role));
+    const userRoles = req.user.roles || []; // array dari JWT
     const isAllowed = userRoles.some((role) => allowedRoles.includes(role));
+
     if (!isAllowed) {
       return res.status(403).json({ message: "Forbidden: insufficient role" });
     }

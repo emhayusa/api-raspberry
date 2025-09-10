@@ -6,8 +6,10 @@ const base = "/api/v1/";
 
 //routes
 const authRoutes = require("./app/routes/authRoutes");
+const deviceRoutes = require("./app/routes/deviceRoutes");
 const gnssRoutes = require("./app/routes/gnssRoutes");
 const observationRoutes = require("./app/routes/observationRoutes");
+const projectRoutes = require("./app/routes/projectRoutes");
 const rainFallRoutes = require("./app/routes/rainFallRoutes");
 const waterLevelRoutes = require("./app/routes/waterLevelRoutes");
 const waveRoutes = require("./app/routes/waveRoutes");
@@ -33,8 +35,10 @@ app.get(base, (req, res) => {
 });
 
 app.use(`${base}auth`, authRoutes);
+app.use(`${base}devices`, deviceRoutes);
 app.use(`${base}gnss`, gnssRoutes);
 app.use(`${base}observations`, observationRoutes);
+app.use(`${base}projects`, projectRoutes);
 app.use(`${base}rain-fall`, rainFallRoutes);
 app.use(`${base}water-level`, waterLevelRoutes);
 app.use(`${base}wave`, waveRoutes);

@@ -1,20 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { getLast, getRange } = require("../controllers/waveController");
+const { getListMyProject } = require("../controllers/projectController");
 const {
   authenticateJWT,
   authorizeRoles,
 } = require("../middleware/authMiddleware");
 
-// Protected route example
-router.get("/last/:deviceUuid", authenticateJWT, getLast);
-
-// Admin-only route example
 router.get(
-  "/range/:deviceUuid",
+  "/list-my-project",
   authenticateJWT,
   authorizeRoles("client"),
-  getRange
+  getListMyProject
 );
 
 module.exports = router;

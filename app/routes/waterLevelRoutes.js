@@ -7,11 +7,11 @@ const {
 } = require("../middleware/authMiddleware");
 
 // Protected route example
-router.get("/last/:deviceId", authenticateJWT, getLast);
+router.get("/last/:deviceUuid", authenticateJWT, getLast);
 
 // Admin-only route example
 router.get(
-  "/range/:deviceId",
+  "/range/:deviceUuid",
   authenticateJWT,
   authorizeRoles("client"),
   getRange
