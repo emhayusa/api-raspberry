@@ -5,7 +5,13 @@ global.__basedir = __dirname;
 const base = "/api/v1/";
 
 //routes
+const authRoutes = require("./app/routes/authRoutes");
+const gnssRoutes = require("./app/routes/gnssRoutes");
 const observationRoutes = require("./app/routes/observationRoutes");
+const rainFallRoutes = require("./app/routes/rainFallRoutes");
+const waterLevelRoutes = require("./app/routes/waterLevelRoutes");
+const waveRoutes = require("./app/routes/waveRoutes");
+//const weatherRoutes = require("./app/routes/weatherRoutes");
 
 const app = express();
 
@@ -26,8 +32,12 @@ app.get(base, (req, res) => {
   res.json({ message: "Welcome to PRESISIPEDIA API." });
 });
 
+app.use(`${base}auth`, authRoutes);
+app.use(`${base}gnss`, gnssRoutes);
 app.use(`${base}observations`, observationRoutes);
-
+app.use(`${base}rain-fall`, rainFallRoutes);
+app.use(`${base}water-level`, waterLevelRoutes);
+app.use(`${base}wave`, waveRoutes);
 //run();
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
